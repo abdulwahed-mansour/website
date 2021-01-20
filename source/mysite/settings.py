@@ -1,4 +1,4 @@
-import os
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -14,7 +14,7 @@ SECRET_KEY = 'xhs9wz01kx@3)9@$a67xwjqel8e&q5bli97k8plo#(^@9vi3fx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 
 # Application definition
@@ -25,7 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     
     # Third-party
     'allauth',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -121,3 +124,46 @@ STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+# DJANGO-CRISPY-FORMS CONFIGS
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# EMAIL
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# DJANGO-DEBUG-TOOLBAR CONFIGS
+
+# _________________ INTERNAL_IPS = ['127.0.0.1']
+
+# CUSTOM USER MODEL CONFIGS
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# DJANGO-ALLAUTH CONFIGS
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'home'
+
+
+ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
+
+# https://django-allauth.readthedocs.io/en/latest/installation.html?highlight=backends
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
