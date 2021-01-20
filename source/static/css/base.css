@@ -1,0 +1,14 @@
+body {
+	font-family: var(--bs-font-sans-serif);
+	font-size: 1.1rem;
+	font-weight: 500;
+	line-height: 1.7;
+	color: #1a1b1d;
+	
+}
+
+.nav-link {
+	display: block;
+    padding: .7rem 1rem;
+    
+}
